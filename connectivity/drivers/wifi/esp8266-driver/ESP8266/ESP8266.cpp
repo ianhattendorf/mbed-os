@@ -387,6 +387,19 @@ bool ESP8266::disconnect(void)
     return done;
 }
 
+bool ESP8266::deep_sleep(void)
+{
+    _smutex.lock();
+    bool done = _parser.send("AT+GSLP=0") && _parser.recv("0\nOK\n");
+    _smutex.unlock();
+
+    if (!done) {
+        tr_warning("AT+GSLP=0 - FAIL");
+    }
+
+    return done;
+}
+
 bool ESP8266::ip_info_print(int enable)
 {
     _smutex.lock();

@@ -54,6 +54,10 @@
             "help": "Max socket data heap usage",
             "value": 8192
         },
+        "disconnect-deep-sleep": {
+            "help": "Deep sleep after disconnect",
+            "value": false
+        },
         "country-code": {
             "help": "ISO 3166-1 coded, 2 character alphanumeric country code, 'CN' by default",
             "value": null

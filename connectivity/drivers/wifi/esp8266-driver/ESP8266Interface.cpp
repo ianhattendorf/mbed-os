@@ -159,10 +159,7 @@ ESP8266Interface::~ESP8266Interface()
     }
     _cmutex.unlock();
 
-    // Power down the modem
-    _rst_pin.rst_assert();
-    // Power off the modem
-    _pwr_pin.power_off();
+    _power_off();
 }
 
 ESP8266Interface::ResetPin::ResetPin(PinName rst_pin) : _rst_pin(mbed::DigitalOut(rst_pin, 1))
@@ -215,8 +212,12 @@ void ESP8266Interface::PowerPin::power_off()
 
 void ESP8266Interface::_power_off()
 {
-    _rst_pin.rst_assert();
-    _pwr_pin.power_off();
+    if (MBED_CONF_ESP8266_DISCONNECT_DEEP_SLEEP) {
+        _esp.deep_sleep();
+    } else {
+        _rst_pin.rst_assert();
+        _pwr_pin.power_off();
+    }
 }
 
 bool ESP8266Interface::PowerPin::is_connected()

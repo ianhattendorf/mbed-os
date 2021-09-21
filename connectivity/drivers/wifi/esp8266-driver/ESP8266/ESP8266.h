@@ -183,6 +183,13 @@ public:
     bool disconnect(void);
 
     /**
+    * Put the ESP8266 into deep sleep
+    *
+    * @return true only if ESP8266 is put to sleep successfully
+    */
+    bool deep_sleep(void);
+
+    /**
     * Enable or disable Remote IP and Port printing with +IPD
     *
     * @param enable, 1 on, 0 off
